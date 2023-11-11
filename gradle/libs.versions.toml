@@ -15,6 +15,7 @@ anvil = "2.4.8"
 androidx-room = "2.6.0"
 okhttp = "4.10.0"
 retrofit = "2.9.0"
+paging = "3.2.1"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -24,6 +25,7 @@ test-junit = { group = "junit", name = "junit", version.ref = "junit" }
 test-android-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
 test-android-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "androidx-room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidx-room" }
 androidx-room-apt = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
 network-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
@@ -38,6 +40,8 @@ androidx-compose-foundation = { group = "androidx.compose.foundation", name = "f
 androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
 androidx-compose-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "compose-activity" }
 androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+androidx-paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 dagger-main = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-apt = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 anvil-annotations = { module = "com.squareup.anvil:annotations-optional", version.ref = "anvil" }
@@ -50,7 +54,8 @@ anvil = { id = "com.squareup.anvil", version.ref = "anvil" }
 
 [bundles]
 androidx-compose = ["androidx-compose-ui", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview", "androidx-compose-foundation", "androidx-compose-material", "androidx-compose-activity-compose", "androidx-compose-navigation"]
-androidx-room = ["androidx-room-runtime", "androidx-room-ktx"]
+androidx-paging = ["androidx-paging", "androidx-paging-compose"]
+androidx-room = ["androidx-room-runtime", "androidx-room-ktx", "androidx-room-paging"]
 network-okhttp = ["network-okhttp", "network-okhttp-logger"]
 network-retrofit = ["network-retrofit", "network-retrofit-moshi"]
 

@@ -9,7 +9,7 @@ data class UserEntity(
     @PrimaryKey val uniqueId: String,
     @Embedded(prefix = "name_") val name: Name,
     val email: String,
-    val position: Long,
+    val position: Int,
 ) {
     data class Name(
         val title: String,

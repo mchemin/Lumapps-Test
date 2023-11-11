@@ -1,26 +1,28 @@
 package com.chemin.lumappstest.domain.usecase
 
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.chemin.lumappstest.domain.model.SimpleDataUser
 import com.chemin.lumappstest.domain.model.SimpleUser
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-interface GetSimpleUserList {
-    operator fun invoke(): Flow<List<SimpleUser>>
+interface GetSimpleUserPagedList {
+    operator fun invoke(): Flow<PagingData<SimpleUser>>
 }
 
-class GetSimpleUserListImpl(
+class GetSimpleUserPagedListImpl(
     private val usersRepository: UsersRepository,
-) : GetSimpleUserList {
+) : GetSimpleUserPagedList {
 
     interface UsersRepository {
-        fun getUserList(): Flow<List<SimpleDataUser>>
+        fun getSimpleDataUerPagingData(): Flow<PagingData<SimpleDataUser>>
     }
 
-    override fun invoke(): Flow<List<SimpleUser>> = usersRepository
-        .getUserList()
-        .map { userDataList ->
-            userDataList.map { userData ->
+    override fun invoke(): Flow<PagingData<SimpleUser>> = usersRepository
+        .getSimpleDataUerPagingData()
+        .map { pagingData ->
+            pagingData.map { userData ->
                 SimpleUser(
                     id = userData.id,
                     displayName = userData.name.let { name -> "${name.title} ${name.first} ${name.last}" },

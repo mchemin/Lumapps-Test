@@ -1,6 +1,6 @@
 package com.chemin.lumappstest.di.userlist
 
-import com.chemin.lumappstest.domain.usecase.GetSimpleUserList
+import com.chemin.lumappstest.domain.usecase.GetSimpleUserPagedList
 import com.chemin.lumappstest.presentation.userlist.UserListViewModel
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
@@ -12,8 +12,8 @@ class PresentationModule {
 
     @Provides
     fun provideUserListViewModel(
-        getSimpleUserList: GetSimpleUserList,
+        getSimpleUserPagedList: GetSimpleUserPagedList,
     ): UserListViewModel = UserListViewModel(
-        getSimpleUserList = getSimpleUserList,
+        getSimpleUserPagedList = getSimpleUserPagedList,
     )
 }

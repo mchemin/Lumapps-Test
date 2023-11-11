@@ -1,5 +1,6 @@
 package com.chemin.lumappstest.data.storage.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,7 +16,7 @@ interface UserDao {
         FROM UserEntity
         ORDER By position
     """)
-    fun getAll(): Flow<List<UserEntity>>
+    fun getAllUserPaged(): PagingSource<Int, UserEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(userEntities: List<UserEntity>)

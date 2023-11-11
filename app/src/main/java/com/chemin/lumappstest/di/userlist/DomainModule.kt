@@ -1,8 +1,8 @@
 package com.chemin.lumappstest.di.userlist
 
 import com.chemin.lumappstest.data.UsersRepository
-import com.chemin.lumappstest.domain.usecase.GetSimpleUserList
-import com.chemin.lumappstest.domain.usecase.GetSimpleUserListImpl
+import com.chemin.lumappstest.domain.usecase.GetSimpleUserPagedList
+import com.chemin.lumappstest.domain.usecase.GetSimpleUserPagedListImpl
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
@@ -12,9 +12,9 @@ import dagger.Provides
 class DomainModule {
 
     @Provides
-    fun provideGetSimpleUserList(
+    fun provideGetSimpleUserPagedList(
         usersRepository: UsersRepository,
-    ): GetSimpleUserList = GetSimpleUserListImpl(
+    ): GetSimpleUserPagedList = GetSimpleUserPagedListImpl(
         usersRepository = usersRepository,
     )
 }

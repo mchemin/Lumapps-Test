@@ -11,7 +11,7 @@ private fun UserEntity.Name.toUserName() = UserName(
     last = lastName,
 )
 
-private fun UserEntity.toSimpleDataUser() = SimpleDataUser(
+fun UserEntity.toSimpleDataUser() = SimpleDataUser(
     id = UserId(uniqueId),
     name = name.toUserName(),
     email = email,

@@ -9,7 +9,7 @@ interface RandomUserService {
     @GET("api")
     fun userPageList(
         @Query("seed") seed: String = "toto",
-        @Query("results") result: Int = 10,
+        @Query("results") result: Int,
         @Query("page") page: Int,
     ): Call<UserListsDTO>
 }

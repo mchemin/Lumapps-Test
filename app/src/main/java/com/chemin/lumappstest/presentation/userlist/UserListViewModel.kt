@@ -1,28 +1,16 @@
 package com.chemin.lumappstest.presentation.userlist
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.chemin.lumappstest.domain.model.SimpleUser
-import com.chemin.lumappstest.domain.usecase.GetSimpleUserList
+import com.chemin.lumappstest.domain.usecase.GetSimpleUserPagedList
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class UserListViewModel(
-    private val getSimpleUserList: GetSimpleUserList,
+    getSimpleUserPagedList: GetSimpleUserPagedList,
 ) : ViewModel() {
 
-    private val _userList = MutableStateFlow<List<SimpleUser>>(emptyList())
-    val userList: Flow<List<SimpleUser>>
-        get() = _userList
-
-    init {
-        viewModelScope.launch {
-            getSimpleUserList()
-                .collectLatest { _userList.value = it }
-        }
-    }
+    val userList: Flow<PagingData<SimpleUser>> = getSimpleUserPagedList()
 
     fun onUserClick(user: SimpleUser) {
         // TODO

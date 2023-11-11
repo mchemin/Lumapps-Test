@@ -13,12 +13,18 @@ import dagger.Provides
 class DataModule {
 
     @Provides
+    @PageSize
+    fun providePageSize() = 50
+
+    @Provides
     @SingleIn(AppScope::class)
     fun provideUsersRepository(
         userDao: UserDao,
         randomUserService: RandomUserService,
+        @PageSize pageSize: Int,
     ) = UsersRepository(
         userDao = userDao,
         randomUserService = randomUserService,
+        pageSize = pageSize,
     )
 }

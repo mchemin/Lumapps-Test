@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.app.compat)
     implementation(libs.design.marerial)
     implementation(libs.bundles.androidx.compose)
+    implementation(libs.bundles.androidx.paging)
     implementation(libs.dagger.main)
     implementation(libs.anvil.annotations)
     implementation(libs.bundles.androidx.room)

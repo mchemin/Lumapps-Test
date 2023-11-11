@@ -5,10 +5,16 @@ material = "1.10.0"
 junit = "4.13.2"
 androidx-junit = "1.1.5"
 espresso = "3.5.1"
-android-gradle-plugin = "8.1.0-rc01"
+android-gradle-plugin = "8.1.0"
 kotlin = "1.9.20"
 compose = "1.5.4"
 compose-activity = "1.7.1"
+navigation = "2.7.5"
+dagger = "2.47"
+anvil = "2.4.8"
+androidx-room = "2.6.0"
+okhttp = "4.10.0"
+retrofit = "2.9.0"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -17,6 +23,13 @@ design-marerial = { group = "com.google.android.material", name = "material", ve
 test-junit = { group = "junit", name = "junit", version.ref = "junit" }
 test-android-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
 test-android-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidx-room" }
+androidx-room-apt = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+network-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+network-okhttp-logger = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+network-retrofit = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
+network-retrofit-moshi = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
@@ -24,12 +37,20 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
 androidx-compose-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "compose-activity" }
+androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+dagger-main = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-apt = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+anvil-annotations = { module = "com.squareup.anvil:annotations-optional", version.ref = "anvil" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 com-android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+anvil = { id = "com.squareup.anvil", version.ref = "anvil" }
 
 [bundles]
-androidx-compose = ["androidx-compose-ui", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview", "androidx-compose-foundation", "androidx-compose-material", "androidx-compose-activity-compose"]
+androidx-compose = ["androidx-compose-ui", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview", "androidx-compose-foundation", "androidx-compose-material", "androidx-compose-activity-compose", "androidx-compose-navigation"]
+androidx-room = ["androidx-room-runtime", "androidx-room-ktx"]
+network-okhttp = ["network-okhttp", "network-okhttp-logger"]
+network-retrofit = ["network-retrofit", "network-retrofit-moshi"]
 

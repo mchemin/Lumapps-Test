@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.anvil)
+    id("kotlin-kapt")
 }
 
 android {
@@ -46,6 +48,13 @@ dependencies {
     implementation(libs.androidx.app.compat)
     implementation(libs.design.marerial)
     implementation(libs.bundles.androidx.compose)
+    implementation(libs.dagger.main)
+    implementation(libs.anvil.annotations)
+    implementation(libs.bundles.androidx.room)
+    implementation(libs.bundles.network.okhttp)
+    implementation(libs.bundles.network.retrofit)
+    kapt(libs.dagger.apt)
+    kapt(libs.androidx.room.apt)
 
     implementation(project(":Design"))
 

@@ -1,0 +1,22 @@
+package com.chemin.lumappstest.data.storage.dao
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.chemin.lumappstest.data.storage.entity.UserEntity
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface UserDao {
+
+    @Query("""
+        SELECT *
+        FROM UserEntity
+        ORDER By position
+    """)
+    fun getAll(): Flow<List<UserEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(userEntities: List<UserEntity>)
+}

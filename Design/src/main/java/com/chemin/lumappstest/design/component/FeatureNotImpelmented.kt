@@ -30,6 +30,8 @@ fun FeatureNotImplemented(
                 .align(alignment = Alignment.Center),
         ) {
             Text(
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.feature_not_implemented),
                 color = MaterialTheme.colors.onError,
                 style = MaterialTheme.typography.h4,
@@ -37,6 +39,8 @@ fun FeatureNotImplemented(
             )
             if (!message.isNullOrBlank()) {
                 Text(
+                    modifier = Modifier
+                        .align(alignment = Alignment.CenterHorizontally),
                     text = message,
                     color = MaterialTheme.colors.onError,
                     style = MaterialTheme.typography.body1,

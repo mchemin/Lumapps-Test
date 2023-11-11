@@ -1,5 +1,6 @@
 package com.chemin.lumappstest.di.userlist
 
+import androidx.navigation.NavController
 import com.chemin.lumappstest.domain.usecase.GetSimpleUserPagedList
 import com.chemin.lumappstest.presentation.userlist.UserListViewModel
 import com.squareup.anvil.annotations.ContributesTo
@@ -13,7 +14,9 @@ class PresentationModule {
     @Provides
     fun provideUserListViewModel(
         getSimpleUserPagedList: GetSimpleUserPagedList,
+        navController: NavController,
     ): UserListViewModel = UserListViewModel(
         getSimpleUserPagedList = getSimpleUserPagedList,
+        navController = navController,
     )
 }

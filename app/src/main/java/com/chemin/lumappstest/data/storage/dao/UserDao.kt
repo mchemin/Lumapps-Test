@@ -30,7 +30,7 @@ interface UserDao {
         WHERE uniqueId = :userId
     """
     )
-    fun getUserById(userId: String): Flow<UserEntity>
+    fun getUserById(userId: String): Flow<UserEntity?>
 
     @Query(
         """

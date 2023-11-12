@@ -46,8 +46,8 @@ class UsersRepository(
             }
     }
 
-    override fun getUserDetail(userId: UserId): Flow<SimpleDataUser> =
+    override fun getUserDetail(userId: UserId): Flow<SimpleDataUser?> =
         userDao
             .getUserById(userId = userId.value)
-            .map { userEntity -> userEntity.toSimpleDataUser() }
+            .map { userEntity -> userEntity?.toSimpleDataUser() }
 }

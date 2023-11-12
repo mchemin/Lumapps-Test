@@ -12,13 +12,15 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,7 +28,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.chemin.lumappstest.design.component.FeatureNotImplemented
+import com.chemin.lumappstest.design.component.PageError
 import com.chemin.lumappstest.design.component.PageLoader
 import com.chemin.lumappstest.domain.model.SimpleUser
 import com.chemin.lumappstest.domain.model.UserId
@@ -39,22 +41,64 @@ fun SimpleUserList(
 ) {
     val userPagingList: LazyPagingItems<SimpleUser> =
         userListViewModel.userList.collectAsLazyPagingItems()
-    SimpleUserPagingList(
+    SimpleUserRefreshablePagingList(
         users = userPagingList,
         onUserClick = onUserClick,
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+private fun SimpleUserRefreshablePagingList(
+    modifier: Modifier = Modifier,
+    users: LazyPagingItems<SimpleUser>,
+    onUserClick: (SimpleUser) -> Unit = {},
+) {
+    val refreshState = rememberPullRefreshState(
+        refreshing = users.loadState.refresh is LoadState.Loading,
+        onRefresh = { users.refresh() }
+    )
+    when {
+        users.loadState.refresh is LoadState.Loading && users.itemCount == 0 -> {
+            PageLoader()
+        }
+
+        users.loadState.refresh is LoadState.Error && users.itemCount == 0 -> {
+            PageError(
+                message = "Erreur while fetching user list",
+                retryAction = { users.refresh() },
+            )
+        }
+
+        else -> {
+            Box(
+                modifier = modifier
+                    .pullRefresh(state = refreshState),
+            ) {
+                SimpleUserPagingList(
+                    users = users,
+                    onUserClick = onUserClick,
+                )
+                PullRefreshIndicator(
+                    modifier = Modifier
+                        .align(alignment = Alignment.TopCenter),
+                    refreshing = users.loadState.refresh is LoadState.Loading,
+                    state = refreshState,
+                )
+            }
+        }
+    }
+}
+
 @Composable
 private fun SimpleUserPagingList(
-    modifier: Modifier = Modifier,
     users: LazyPagingItems<SimpleUser>,
     onUserClick: (SimpleUser) -> Unit = {},
 ) {
     // TODO there is an issue with the stable id here. when the loading footer become visible
     // once the loading is done, the list show different items
     // I try key = { users.peek(index)?.id ?: index } but it does not fix the issue
-    LazyColumn(modifier = modifier) {
+    LazyColumn {
         // user list content
         items(
             count = users.itemCount,
@@ -68,32 +112,24 @@ private fun SimpleUserPagingList(
             Divider()
         }
         // loading state
-        users.apply {
-            when {
-                // refreshing from start
-                loadState.refresh is LoadState.Loading -> {
-                    item {
-                        PageLoader()
-                    }
+        when (users.loadState.append) {
+            // loading next page
+            is LoadState.Loading -> {
+                item {
+                    LoadingNextPageRow()
                 }
-                // error while first refresh
-                loadState.refresh is LoadState.Error -> {
-                    item {
-                        FeatureNotImplemented("Error case not handled")
-                    }
+            }
+            // error fetching net page
+            is LoadState.Error -> {
+                item {
+                    LoadingErrorNextPageRow { users.retry() }
                 }
-                // loading next page
-                loadState.append is LoadState.Loading -> {
-                    item {
-                        LoadingNextPageRow()
-                    }
-                }
-                // error fetching net page
-                loadState.append is LoadState.Error -> {
-                    item {
-                        LoadingErrorNextPageRow()
-                    }
-                }
+            }
+            // not loading
+            is LoadState.NotLoading -> {
+                // nothing to be done here. case only exists because when needs to be exhaustive
+                // also we could display a footer to indicated the end of the list, but in our case
+                // we will never reach the end of the list.
             }
         }
     }
@@ -142,17 +178,20 @@ private fun LoadingNextPageRow() {
 }
 
 @Composable
-private fun LoadingErrorNextPageRow() {
+private fun LoadingErrorNextPageRow(
+    refresh: () -> Unit,
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
-            .background(color = MaterialTheme.colors.error),
+            .background(color = MaterialTheme.colors.error)
+            .clickable { refresh() },
     ) {
         Text(
             modifier = Modifier
                 .align(alignment = Alignment.Center),
-            text = "Error while fetching data",
+            text = "Error. Tap to retry.",
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onError,
         )
@@ -171,7 +210,7 @@ private fun PreviewSimpleUserRow() {
             )
         )
         LoadingNextPageRow()
-        LoadingErrorNextPageRow()
+        LoadingErrorNextPageRow(refresh = {})
     }
 }
 
@@ -212,5 +251,5 @@ private fun PreviewSimpleUserList() {
     )
     val flow = MutableStateFlow(PagingData.from(users))
     val lazyPagingItems = flow.collectAsLazyPagingItems()
-    SimpleUserPagingList(users = lazyPagingItems)
+    SimpleUserRefreshablePagingList(users = lazyPagingItems)
 }

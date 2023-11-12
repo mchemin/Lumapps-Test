@@ -20,8 +20,14 @@ class UserRemoteMediator(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : RemoteMediator<Int, UserEntity>() {
 
-    // we don't want the initial refresh there
-    override suspend fun initialize(): InitializeAction = InitializeAction.SKIP_INITIAL_REFRESH
+    // we only want to start with refresh if we don't have any user in the databse
+    override suspend fun initialize(): InitializeAction = withContext(ioDispatcher) {
+        if (userDao.getUserCount() == 0) {
+            InitializeAction.LAUNCH_INITIAL_REFRESH
+        } else {
+            InitializeAction.SKIP_INITIAL_REFRESH
+        }
+    }
 
     override suspend fun load(
         loadType: LoadType,
@@ -55,7 +61,6 @@ class UserRemoteMediator(
                     ?: 1
             }
         }
-        Log.e("paging", "laoding page = $page")
         val endOfPaginationReach: Boolean = loadType == LoadType.PREPEND && page <= 1
 
         return withContext(ioDispatcher) {
@@ -65,7 +70,6 @@ class UserRemoteMediator(
                 val response = call.execute()
                 val body = response.body()
                 if (response?.isSuccessful == true && body != null) {
-                    Log.e("paging", "call success for page = $page")
                     // insert all response
                     val userEntities = body
                         .results
@@ -81,6 +85,9 @@ class UserRemoteMediator(
                                 position = (index + page * pageSize)
                             )
                         }
+                    if (userEntities.isNotEmpty() && loadType == LoadType.REFRESH) {
+                        userDao.deleteAllUsers()
+                    }
                     userDao.insert(userEntities = userEntities)
                     MediatorResult.Success(endOfPaginationReached = endOfPaginationReach)
                 } else {

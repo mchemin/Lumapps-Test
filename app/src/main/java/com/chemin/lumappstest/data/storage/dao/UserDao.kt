@@ -31,4 +31,19 @@ interface UserDao {
     """
     )
     fun getUserById(userId: String): Flow<UserEntity>
+
+    @Query(
+        """
+            SELECT COUNT(*)
+            FROM UserEntity
+        """
+    )
+    suspend fun getUserCount(): Int
+
+    @Query(
+        """
+            DELETE FROM UserEntity
+        """
+    )
+    suspend fun deleteAllUsers()
 }

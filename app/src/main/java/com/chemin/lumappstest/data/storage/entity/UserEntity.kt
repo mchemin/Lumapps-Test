@@ -10,10 +10,16 @@ data class UserEntity(
     @Embedded(prefix = "name_") val name: Name,
     val email: String,
     val position: Int,
+    @Embedded(prefix = "picture_url_") val pictureUrl: PictureUrl
 ) {
     data class Name(
         val title: String,
         val firstName: String,
         val lastName: String,
+    )
+
+    data class PictureUrl(
+        val thumbnail: String?,
+        val large: String?,
     )
 }

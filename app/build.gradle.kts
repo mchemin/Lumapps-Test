@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.bundles.androidx.room)
     implementation(libs.bundles.network.okhttp)
     implementation(libs.bundles.network.retrofit)
+    implementation(libs.coil)
     kapt(libs.dagger.apt)
     kapt(libs.androidx.room.apt)
 

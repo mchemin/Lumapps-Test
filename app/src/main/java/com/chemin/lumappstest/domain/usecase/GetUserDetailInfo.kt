@@ -34,7 +34,8 @@ class GetUserDetailImpl(
                             title = userData.name.title,
                             firstName = userData.name.first,
                             lastName = userData.name.last,
-                            email = userData.email
+                            email = userData.email,
+                            imageUrl = userData.pictureUrl.let { it.large ?: it.thumbnail }
                         )
                         UserDetailInfoState.Success(userDetailInfo = detail)
                     } else {

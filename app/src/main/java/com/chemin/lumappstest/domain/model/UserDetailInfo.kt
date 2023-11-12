@@ -6,4 +6,5 @@ data class UserDetailInfo(
     val firstName: String,
     val lastName: String,
     val email: String,
+    val imageUrl: String?,
 )

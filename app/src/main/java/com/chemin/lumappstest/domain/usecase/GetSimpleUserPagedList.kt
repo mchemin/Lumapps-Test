@@ -27,6 +27,7 @@ class GetSimpleUserPagedListImpl(
                     id = userData.id,
                     displayName = userData.name.let { name -> "${name.title} ${name.first} ${name.last}" },
                     email = userData.email,
+                    imageUrl = userData.pictureUrl.thumbnail,
                 )
             }
         }

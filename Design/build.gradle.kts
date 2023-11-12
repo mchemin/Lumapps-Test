@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.androidx.app.compat)
     implementation(libs.design.marerial)
     implementation(libs.bundles.androidx.compose)
+    implementation(libs.coil)
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.android.junit)
     androidTestImplementation(libs.test.android.espresso)

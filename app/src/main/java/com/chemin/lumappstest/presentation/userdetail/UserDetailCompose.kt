@@ -18,10 +18,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.chemin.lumappstest.R
 import com.chemin.lumappstest.design.component.PageLoader
 import com.chemin.lumappstest.domain.model.UserDetailInfo
 import com.chemin.lumappstest.domain.model.UserDetailInfoState
@@ -64,7 +66,7 @@ private fun UserDetailEmptyId() {
         Text(
             modifier = Modifier
                 .align(Alignment.Center),
-            text = "Pick an user", // TODO string resources,
+            text = stringResource(id = R.string.pick_an_user),
             style = MaterialTheme.typography.body1,
         )
     }
@@ -78,7 +80,7 @@ private fun UserDetailError() {
         Text(
             modifier = Modifier
                 .align(Alignment.Center),
-            text = "Error while retrieving user", // TODO string resources
+            text = stringResource(id = R.string.error_retrieving_user),
             color = MaterialTheme.colors.error,
             style = MaterialTheme.typography.body1,
         )
@@ -106,19 +108,19 @@ private fun UserDetailView(userDetailInfo: UserDetailInfo) {
             contentDescription = null,
         )
         InformationField(
-            fieldName = "Title", // TODO string resource
+            fieldName = stringResource(id = R.string.title),
             fieldValue = userDetailInfo.title,
         )
         InformationField(
-            fieldName = "First Name", // TODO string resource
+            fieldName = stringResource(id = R.string.first_name),
             fieldValue = userDetailInfo.firstName,
         )
         InformationField(
-            fieldName = "Last Name", // TODO string resource
+            fieldName = stringResource(id = R.string.last_name),
             fieldValue = userDetailInfo.lastName,
         )
         InformationField(
-            fieldName = "Email", // TODO string resource
+            fieldName = stringResource(id = R.string.email),
             fieldValue = userDetailInfo.email,
         )
     }

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">LumappsTest</string>
+
+    <string name="title">Title</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="error_retrieving_user">Error while retrieving user</string>
+    <string name="pick_an_user">Pick an user</string>
+    <string name="error_user_list">Error while fetching user list</string>
+    <string name="error_next_page">Tap to retry loading next users</string>
 </resources>

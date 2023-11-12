@@ -82,7 +82,11 @@ class UserRemoteMediator(
                                     lastName = userDto.name.last,
                                 ),
                                 email = userDto.email,
-                                position = (index + page * pageSize)
+                                position = (index + page * pageSize),
+                                pictureUrl = UserEntity.PictureUrl(
+                                    thumbnail = userDto.picture.thumbnail,
+                                    large = userDto.picture.large,
+                                )
                             )
                         }
                     if (userEntities.isNotEmpty() && loadType == LoadType.REFRESH) {

@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
+import com.chemin.lumappstest.R
 import com.chemin.lumappstest.design.component.PageError
 import com.chemin.lumappstest.design.component.PageLoader
 import com.chemin.lumappstest.domain.model.SimpleUser
@@ -70,7 +72,7 @@ private fun SimpleUserRefreshablePagingList(
 
         users.loadState.refresh is LoadState.Error && users.itemCount == 0 -> {
             PageError(
-                message = "Erreur while fetching user list",
+                message = stringResource(id = R.string.error_user_list),
                 retryAction = { users.refresh() },
             )
         }
@@ -210,7 +212,7 @@ private fun LoadingErrorNextPageRow(
         Text(
             modifier = Modifier
                 .align(alignment = Alignment.Center),
-            text = "Error. Tap to retry.",
+            text = stringResource(id = R.string.error_next_page),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.onError,
         )

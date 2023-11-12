@@ -10,16 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 class UserListViewModel(
     getSimpleUserPagedList: GetSimpleUserPagedList,
-    private val navController: NavController,
 ) : ViewModel() {
 
     val userList: Flow<PagingData<SimpleUser>> = getSimpleUserPagedList()
-
-    fun onUserClick(user: SimpleUser) {
-        navController.navigate(
-            route = UserDetailScreen.buildForUserId(
-                userId = user.id,
-            ),
-        )
-    }
 }

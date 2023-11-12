@@ -35,12 +35,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 @Composable
 fun SimpleUserList(
     userListViewModel: UserListViewModel,
+    onUserClick: (SimpleUser) -> Unit,
 ) {
     val userPagingList: LazyPagingItems<SimpleUser> =
         userListViewModel.userList.collectAsLazyPagingItems()
     SimpleUserPagingList(
         users = userPagingList,
-        onUserClick = userListViewModel::onUserClick,
+        onUserClick = onUserClick,
     )
 }
 

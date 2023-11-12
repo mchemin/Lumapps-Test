@@ -98,7 +98,7 @@ private fun UserDetailView(userDetailInfo: UserDetailInfo) {
             fieldValue = userDetailInfo.firstName,
         )
         InformationField(
-            fieldName = "Last ?ame", // TODO string resource
+            fieldName = "Last Name", // TODO string resource
             fieldValue = userDetailInfo.lastName,
         )
         InformationField(

@@ -11,13 +11,24 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserDao {
 
-    @Query("""
+    @Query(
+        """
         SELECT *
         FROM UserEntity
         ORDER By position
-    """)
+    """
+    )
     fun getAllUserPaged(): PagingSource<Int, UserEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(userEntities: List<UserEntity>)
+
+    @Query(
+        """
+        SELECT *
+        FROM UserEntity
+        WHERE uniqueId = :userId
+    """
+    )
+    fun getUserById(userId: String): Flow<UserEntity>
 }

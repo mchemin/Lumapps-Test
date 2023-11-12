@@ -1,8 +1,8 @@
 package com.chemin.lumappstest.di.application
 
 import android.app.Application
+import com.chemin.lumappstest.di.userdetail.UserDetailSubComponent
 import com.chemin.lumappstest.di.userlist.UserListSubComponent
-import com.chemin.lumappstest.presentation.userlist.UserListViewModel
 import com.squareup.anvil.annotations.MergeComponent
 import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.BindsInstance
@@ -19,5 +19,7 @@ interface AppComponent {
             @BindsInstance @BaseUrl baseUrl: String,
         ): AppComponent
     }
+
     fun userListComponentFactory(): UserListSubComponent.Factory
+    fun userDetailComponentFactory(): UserDetailSubComponent.Factory
 }

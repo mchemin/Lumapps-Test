@@ -23,7 +23,9 @@ import com.chemin.lumappstest.design.component.hasSpaceForDualPanel
 import com.chemin.lumappstest.di.anvilViewModel
 import com.chemin.lumappstest.di.application.AppComponent
 import com.chemin.lumappstest.domain.model.SimpleUser
+import com.chemin.lumappstest.domain.model.UserId
 import com.chemin.lumappstest.presentation.UserDetailScreen.getUserId
+import com.chemin.lumappstest.presentation.userdetail.UserDetail
 import com.chemin.lumappstest.presentation.userlist.SimpleUserList
 
 @Composable
@@ -72,7 +74,10 @@ fun LumappsTestComposeApp(
                             modifier = Modifier
                                 .weight(3f)
                         ) {
-                            UserDetail(userId = userId)
+                            UserDetailComposable(
+                                appComponent = appComponent,
+                                userId = userId,
+                            )
                         }
                     }
                 }
@@ -87,7 +92,10 @@ fun LumappsTestComposeApp(
                 if (isTwoPanel) {
                     navHostController.navigateUp()
                 }
-                UserDetail(userId = destinationUserId)
+                UserDetailComposable(
+                    appComponent = appComponent,
+                    userId = destinationUserId,
+                )
             }
         }
     }
@@ -108,10 +116,18 @@ private fun UserListComposable(
 }
 
 @Composable
-private fun UserDetail(userId: String?) {
-    if (userId.isNullOrBlank()) {
-        FeatureNotImplemented("Missing user id - Empty view not created yet")
-    } else {
-        FeatureNotImplemented("User detail ($userId) is not yet implemented")
+private fun UserDetailComposable(
+    appComponent: AppComponent,
+    userId: String?,
+) {
+    val subComponent = appComponent
+        .userDetailComponentFactory()
+        .create()
+    val userDetailViewModel = anvilViewModel {
+        subComponent.userDetailViewModel()
     }
+    UserDetail(
+        userId = userId?.let { UserId(it) },
+        userDetailViewModel = userDetailViewModel,
+    )
 }

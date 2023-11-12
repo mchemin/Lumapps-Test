@@ -106,6 +106,7 @@ private fun SimpleUserRow(
 ) {
     Column(
         modifier = Modifier
+            .fillMaxWidth()
             .wrapContentHeight()
             .clickable { onUserClick(simpleUser) }
             .padding(

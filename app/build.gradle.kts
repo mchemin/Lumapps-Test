@@ -41,6 +41,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -60,6 +63,8 @@ dependencies {
     implementation(project(":Design"))
 
     testImplementation(libs.test.junit)
+    testImplementation(libs.test.truth.core)
+    testImplementation(libs.test.coroutine)
 
     androidTestImplementation(libs.test.android.junit)
     androidTestImplementation(libs.test.android.espresso)

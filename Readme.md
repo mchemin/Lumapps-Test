@@ -9,7 +9,7 @@ New item are query when the user scroll to the bottom of the list. If the user d
 
 ## Architecture
 
-The app respect the principles of clean architecture with 3 distincts layers :
+The app respect the principles of clean architecture with 3 distinct layers :
 
 - domain layer (in the domain package) contains model and use case that ;
 - data layer (in the data package) contains the code related to data fetching and data storage ;
@@ -17,9 +17,9 @@ The app respect the principles of clean architecture with 3 distincts layers :
 
 The domain layer does not depends on the data or presentation layer. This two layer depends on the domain layer.
 
-I could have gone a step further, and better seprate the network and database, in order to have a cleaner implementation of this.
+I could have gone a step further, and better separate the network and database, in order to have a cleaner implementation of this.
 
-I also create a separate module name Design. This module contains a theme and some component used to build the app. In a project this size (and with only one module), it is not necesseraly, but in a bigger project, with serparate feature module, it would be useful.
+I also create a separate module name Design. This module contains a theme and some component used to build the app. In a project this size (and with only one module), it is not necessarily, but in a bigger project, with separate feature module, it would be useful.
 
 This Design module also contains a composable for loading image. Placing this composable in a library module allow me to have a standard way of loading images and to not expose the image loading everywhere.
 
@@ -41,7 +41,7 @@ It has a lot of built-in feature to make the display, loading & refreshing of th
 
 ### Jetpack compose & navigation
 
-As i was starting fresh, i wanted to do a full-compose application, including the navigation. This was an opportunity to use up-to-date approach for android ui developpement.
+As i was starting fresh, i wanted to do a full-compose application, including the navigation. This was an opportunity to use up-to-date approach for android ui development.
 
 
 ### Other
@@ -56,14 +56,14 @@ I use other librairies, including :
 
 ### KMM
 
-I consider using KMM for this project, but i was not sure of the strategy to use for implementing infinte loading for iOS. Hence, i prefer due to limited time and my lack of knowledge of iOS developement to avoid KMM and enjoy android paging.
+I consider using KMM for this project, but i was not sure of the strategy to use for implementing infinite loading for iOS. Hence, i prefer due to limited time and my lack of knowledge of iOS development to avoid KMM and enjoy android paging.
 
 ### Tests
 
 I did not write tests in this projects.
-I focus on building the app, and the let the tests appart.
-Becaseuse I lack recent experience with UI tests framework like esspresso, i choose to let them aside.
-I could have wrote some unit tests as i rely on inversion dependency principles.
+Because I lack recent experience with UI tests framework like esspresso, i focus on building the app, and the let these tests apart.
+I do write some unit tests for my domain layer.
+I could also have written tests for the data layer, especially the UserRemoteMediator. This would have been possible because of the dependency inversion principles is used.
 
 ### Detekt
 

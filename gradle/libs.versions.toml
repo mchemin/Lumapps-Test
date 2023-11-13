@@ -17,6 +17,9 @@ okhttp = "4.10.0"
 retrofit = "2.9.0"
 paging = "3.2.1"
 coil = "2.5.0"
+truth = "1.1.4"
+kotlin-coroutine = "1.7.3"
+mockk = "1.13.8"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -33,7 +36,6 @@ network-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref 
 network-okhttp-logger = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 network-retrofit = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 network-retrofit-moshi = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
@@ -46,7 +48,9 @@ androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", 
 dagger-main = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-apt = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 anvil-annotations = { module = "com.squareup.anvil:annotations-optional", version.ref = "anvil" }
-coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+test-truth-core = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+test-coroutine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlin-coroutine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
